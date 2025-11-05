@@ -9,12 +9,10 @@ namespace chatbot.Controllers;
 public class ChatController : ControllerBase
 {
     private readonly IChatService _chatService;
-    private readonly IChatRepository _chatRepository;
 
-    public ChatController(IChatService chatService, IChatRepository chatRepository)
+    public ChatController(IChatService chatService)
     {
         _chatService = chatService;
-        _chatRepository = chatRepository;
     }
 
     [HttpPost]
@@ -45,16 +43,20 @@ public class ChatController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> History()
     {
-        var conversations = await _chatRepository.GetAllConversationsAsync();
-
-        return Ok(conversations);
+        return Ok(await _chatService.GetHistoryAsync());
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Conversation(Guid id)
     {
-        var conversation = await _chatRepository.GetMessagesByConversationIdAsync(id);
+        return Ok(await _chatService.GetConversationAsync(id));
+    }
 
-        return Ok(conversation);
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> RemoveConversations(Guid id)
+    {
+        await _chatService.RemoveConversationAsync(id);
+
+        return Ok();
     }
 }

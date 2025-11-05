@@ -8,5 +8,6 @@ public interface IChatRepository
     Task AddMessageAsync(ChatMessageEntity message);
     Task<List<Conversation>> GetAllConversationsAsync();
     Task<List<ChatMessageEntity>> GetMessagesByConversationIdAsync(Guid conversatioId);
+    Task RemoveAllByConversationIdAsync(Guid conversationId);
     Task SaveChangesAsync();
 }

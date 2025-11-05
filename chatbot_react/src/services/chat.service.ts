@@ -26,8 +26,13 @@ async function getChat() {
   return response.data;
 }
 
+async function deleteChat(id: string) {
+  await apiClient.delete(`chat/${id}`);
+}
+
 export const ChatService = {
   getChatById,
   getChat,
   postMessage,
+  deleteChat,
 };

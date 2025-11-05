@@ -11,13 +11,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-            ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-        )
-    );
+{
+    var connectString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseNpgsql(connectString, o => o.UseVector());
+});
 
-builder.Services.AddScoped<IChatService, ChatGeminiService>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
+builder.Services.AddScoped<IEmbeddingRepository, EmbeddingRepository>();
+builder.Services.AddScoped<IDataService, SpreadsheetService>();
+builder.Services.AddScoped<IChatService, ChatGeminiService>();
+builder.Services.AddScoped<IEmbeddingService, EmbeddingGeminiService>();
+builder.Services.AddScoped<IEmbeddingDataService, EmbeddingDataService>();
+builder.Services.AddScoped<VectorSearchService>();
 
 builder.Services.AddCors(options =>
 {
