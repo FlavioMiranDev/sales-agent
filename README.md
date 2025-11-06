@@ -6,12 +6,12 @@ Sistema de chatbot com backend em C# .NET e frontend em React + TypeScript + Vit
 ## Tecnologias
 - Backend: C# .NET 9+
 - Frontend: React, TypeScript, Vite, Scss
-- Banco de Dados: MySql
+- Banco de Dados: PostgreSQL
 
 ## Pré-requisitos
 - .NET 9.0 SDK
 - Node.js 18+
-- MySql
+- PostgreSQL
 
 ## Instalação
 
@@ -44,7 +44,7 @@ Crie os arquivos ```appsettings.json``` e ```appsettin.Development.json```:
     "ApiKey": "SUA_CHAVE_API_GEMINI_AI"
   },
   "ConnectionStrings": {
-    "DefaultConnection": "CONNECT_STRING_DO_MYSQL"
+    "DefaultConnection": "CONNECT_STRING_DO_POSTGRESQL"
   },
   "Logging": {
     "LogLevel": {
