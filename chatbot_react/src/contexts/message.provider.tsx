@@ -3,10 +3,9 @@ import type { Message, MessageRequest } from "../types/message";
 import { MessageContext } from "./message.context";
 import { ChatService } from "../services/chat.service";
 import type { Conversation } from "../types/conversation";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function MessageProvider({ children }: { children: ReactNode }) {
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -15,8 +14,6 @@ export function MessageProvider({ children }: { children: ReactNode }) {
   const [conversationSelected, setConversationSelected] = useState<
     string | null
   >(null);
-
-  if (id === "undefined") navigate("/");
 
   const loadConversations = async () => {
     const response = (await ChatService.getChat()) as Conversation[];
@@ -60,6 +57,16 @@ export function MessageProvider({ children }: { children: ReactNode }) {
     navigate(`/${id ? id : ""}`);
   };
 
+  const removeConversation = async (id: string) => {
+    await ChatService.deleteChat(id);
+
+    await loadConversations();
+
+    if (conversationSelected === id) {
+      setConversationSelected(null);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       await loadConversations();
@@ -68,7 +75,7 @@ export function MessageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      if (conversationSelected) {
+      if (conversationSelected && conversationSelected !== "undefined") {
         setIsLoading(true);
         const response = await ChatService.getChatById(conversationSelected);
 
@@ -88,6 +95,7 @@ export function MessageProvider({ children }: { children: ReactNode }) {
         conversations,
         newMessage,
         setConversation,
+        removeConversation,
       }}
     >
       {children}

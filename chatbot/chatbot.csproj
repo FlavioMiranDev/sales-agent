@@ -10,11 +10,16 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Google_GenerativeAI.Microsoft" Version="3.4.0" />
-    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.251001.3" />
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.251105.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.66.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.66.0" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.21" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+    <PackageReference Include="EPPlus" Version="8.2.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+    <PackageReference Include="Pgvector.EntityFrameworkCore" Version="0.2.2" />
+    <PackageReference Include="Microsoft.Extensions.AI" Version="9.10.2" />
   </ItemGroup>
 
 </Project>

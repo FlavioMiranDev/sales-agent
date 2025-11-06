@@ -10,6 +10,7 @@ const initialState: MessageContextProps = {
   conversationSelected: null,
   newMessage: (messageToSend: string) => {},
   setConversation: (id: string | null) => {},
+  removeConversation: (id: string) => {},
 };
 
 export const MessageContext = createContext<MessageContextProps>(initialState);

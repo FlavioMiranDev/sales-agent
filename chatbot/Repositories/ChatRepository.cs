@@ -53,6 +53,14 @@ public class ChatRepository : IChatRepository
             .OrderBy(m => m.CreatedAt)
             .ToListAsync();
     }
+
+    public async Task RemoveAllByConversationIdAsync(Guid conversationId)
+    {
+        await _context.ChatMessages
+            .Where(m => m.ConversationId == conversationId)
+            .ExecuteDeleteAsync();
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

@@ -21,4 +21,5 @@ export interface MessageContextProps {
   conversationSelected: string | null;
   newMessage: (messageToSend: string) => void;
   setConversation: (id: string | null) => void;
+  removeConversation: (id: string) => void;
 }
