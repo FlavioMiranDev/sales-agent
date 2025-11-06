@@ -1,37 +1,44 @@
 using System.Text;
+using chatbot.Data;
 using chatbot.Interfaces;
 using chatbot.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace chatbot.Tools;
 
 public class SearchSalesTool
 {
-    private readonly IEmbeddingService _embeddingService;
-    private readonly VectorSearchService _vectorSearchService;
+    // private readonly IEmbeddingService _embeddingService;
+    // private readonly VectorSearchService _vectorSearchService;
+    private readonly AppDbContext _context;
 
-    public SearchSalesTool(IEmbeddingService embeddingService, VectorSearchService vectorSearchService)
+    public SearchSalesTool(AppDbContext context)
     {
-        _embeddingService = embeddingService;
-        _vectorSearchService = vectorSearchService;
+        // _embeddingService = embeddingService;
+        // _vectorSearchService = vectorSearchService;
+        _context = context;
     }
 
-    public async Task<string> ExecuteAsync(string userQuery)
+    public async Task<string> ExecuteAsync(string query)
     {
-        var queryEmbedding = await _embeddingService.GetEmbeddings(userQuery);
-        var similarData = await _vectorSearchService.SearchSimilarAsync(queryEmbedding);
+        // Busca textual simples — contém no cliente, produto, região ou observações
+        var sales = await _context.Sales
+            .Where(s =>
+                EF.Functions.ILike(s.Cliente, $"%{query}%") ||
+                EF.Functions.ILike(s.Produto, $"%{query}%") ||
+                EF.Functions.ILike(s.Regiao, $"%{query}%") ||
+                EF.Functions.ILike(s.Observacoes, $"%{query}%") ||
+                EF.Functions.ILike(s.Categoria, $"%{query}%"))
+            .Take(10)
+            .ToListAsync();
 
-        if (similarData is null || similarData.Count == 0)
-            return "Não encontrei informações relevantes nas vendas.";
+        if (sales.Count == 0)
+            return $"Nenhuma venda encontrada para: \"{query}\"";
 
-        var sb = new StringBuilder();
+        // Exemplo: retorna texto simples
+        var results = sales.Select(s =>
+            $"{s.Data}: {s.Cliente} comprou {s.Quantidade}x {s.Produto} (R${s.Total}) na região {s.Regiao}").ToList();
 
-        sb.AppendLine("Aqui estão algumas vendas relevantes encontradas:");
-
-        foreach (var d in similarData)
-        {
-            sb.AppendLine($"- {d.OriginalText}");
-        }
-
-        return sb.ToString();
+        return string.Join("\n", results);
     }
 }

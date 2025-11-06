@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
 
     public DbSet<ChatMessageEntity> ChatMessages { get; set; }
     public DbSet<EmbeddingData> EmbeddingData { get; set; }
+    public DbSet<Sale> Sales { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

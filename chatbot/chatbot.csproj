@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Google_GenerativeAI.Microsoft" Version="3.4.0" />
-    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.251001.3" />
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.0.0-preview.251105.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.66.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.66.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.21" />

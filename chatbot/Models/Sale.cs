@@ -15,6 +15,9 @@ public class Sale
 
     public string ToSemanticString()
     {
-        return $"Venda de ID:{Id} - {Quantidade} {Produto} para cliente \"{Cliente}\", no valor de {PrecoUnitario} por unidade, dando o valor {Total} no total, executada na data {Data}, para a região {Regiao}, com a observação: {Observacoes}";
+        return $"No dia {Data:dd/MM/yyyy}, foi realizada uma venda de {Quantidade} unidade(s) de {Produto} " +
+           $"para o cliente {Cliente}, na região de {Regiao}. " +
+           $"O produto pertence à categoria {Categoria}, com preço unitário de {PrecoUnitario:C}, " +
+           $"totalizando {Total:C}. Observações adicionais: {Observacoes}.";
     }
 }

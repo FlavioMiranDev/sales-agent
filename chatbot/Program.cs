@@ -23,6 +23,7 @@ builder.Services.AddScoped<IChatService, ChatGeminiService>();
 builder.Services.AddScoped<IEmbeddingService, EmbeddingGeminiService>();
 builder.Services.AddScoped<IEmbeddingDataService, EmbeddingDataService>();
 builder.Services.AddScoped<VectorSearchService>();
+builder.Services.AddScoped<SalesRepository>();
 
 builder.Services.AddCors(options =>
 {
